@@ -372,6 +372,16 @@ class MathBridge(tk.Tk):
         home_x = 1080
         home_y = 700
         self.home_button.place(x=home_x, y=home_y)
+        
+        self.sg_score_lbl = tk.Label(
+            self,
+            text=f"Score = {sg_score}",
+            font=("Tahoma", 30),
+            background="#142948",
+            fg="#EE4B2B",  # the red text colour
+        )
+        self.sg_score_lbl.place(x=70, y=100)
+        
         self.score_game_question()
 
     def score_game_question(self):
