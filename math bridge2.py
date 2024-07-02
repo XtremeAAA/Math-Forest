@@ -146,18 +146,72 @@ class MathBridge(tk.Tk):
         self.time_limit_question()
         self.score_def()
         self.time_limit_countdown_180()
-        
+
         self.characters = [  # Resize the image to 100x100
-            ImageTk.PhotoImage(Image.open("characters/Character stage 5.png").resize((191, 225))),
-            ImageTk.PhotoImage(Image.open("characters/Character stage 4.png").resize((137, 224))),
-            ImageTk.PhotoImage(Image.open("characters/Character stage 3.png").resize((96, 135))),
-            ImageTk.PhotoImage(Image.open("characters/Character stage 2.png").resize((83, 103))),
-            ImageTk.PhotoImage(Image.open("characters/Character stage 1.png").resize((49, 100))),
+            ImageTk.PhotoImage(Image.open("characters/Character 5.png")),
+            ImageTk.PhotoImage(Image.open("characters/Character 4.png")),
+            ImageTk.PhotoImage(Image.open("characters/Character 3.png")),
+            ImageTk.PhotoImage(Image.open("characters/Character 2.png")),
+            ImageTk.PhotoImage(Image.open("characters/Character 1.png")),
         ]
-        
+
         self.character_index = 0
-        self.character_lbl = tk.Label(self, image=self.characters[self.character_index])
+        self.character_lbl = tk.Label(self, image=self.characters[self.character_index], bg="#142948", fg="#142948")
         self.character_lbl.place(relx=0.5, y=660, anchor="center")
+        
+        '''self.characters_message = [
+            "This is sentence 1",
+            "This is sentence 2",
+            "This is sentence 3",
+            "This is sentence 4",
+            "This is sentence 5",
+        ]
+
+        self.character_message_index = 0
+        self.character_message_lbl = tk.Label(self, text=self.characters_message[self.character_index], bg="#142948", fg="white")
+        self.character_message_lbl.place(relx=0.5, rely=0.7, anchor="center")'''
+
+
+
+
+        '''hello_messages = [
+            "Hello, Master!",
+            "Hi there!",
+            "Hey, what's up?",
+            "Yo!",
+            "Hello, friend!",
+        ]
+        hello_positions = [
+            (0.5, 0.7),
+            (0.5, 0.7),
+            (0.5, 0.7),
+            (0.5, 0.7),
+            (0.5, 0.7),
+        ]
+
+        text_box_img = Image.open("Icons2/download (1).png")
+        text_box_img = text_box_img.resize((104, 104))  # Resize the image to 200x50
+        text_box_positions = [
+            (0.25, 0.65),
+            (0.25, 0.65),
+            (0.25, 0.65),
+            (0.25, 0.65),
+            (0.25, 0.65),
+        ]
+        new_img = Image.new('RGBA', text_box_img.size, ("#142948"))
+        new_img.paste(text_box_img, mask=text_box_img)
+        self.text_box_photo = ImageTk.PhotoImage(new_img)  # Keep a reference to the PhotoImage object
+        self.text_box_lbl = tk.Label(self, image=self.text_box_photo, bg="#142948", fg="#142948")
+        self.text_box_lbl.place(relx=text_box_positions[self.character_index][0], rely=text_box_positions[self.character_index][1], anchor="center")
+        self.character_stage_text = tk.Label(
+            self,
+            text=hello_messages[self.character_index],
+            font=("Tahoma", 20),
+            background="#142948",
+            fg="#EE4B2B",  # the red text colour
+        )
+        self.character_stage_text.place(relx=hello_positions[self.character_index][0], rely=hello_positions[self.character_index][1], anchor="center")'''
+
         self.time_limit_countdown_180()
 
     def score_def(self):
@@ -291,10 +345,13 @@ class MathBridge(tk.Tk):
         time_limit_countdown_180 = 180
         characters = ["character1", "character2", "character3", "character4", "character5"]  # list of characters
         character_index = 0
+        '''characters_message = ["character1", "character2", "character3", "character4", "character5"]  # list of characters
+        character_message_index = 0'''
 
         def update_countdown_180():
             nonlocal time_limit_countdown_180
             nonlocal character_index
+            # nonlocal character_message_index
             if time_limit_countdown_180 > 1:
                 time_limit_countdown_180 -= 1
                 self.time_limit_countdown_180_lbl.config(text=f"{time_limit_countdown_180:03d}")  # Update the label text with leading zeros
@@ -302,8 +359,13 @@ class MathBridge(tk.Tk):
                 if time_limit_countdown_180 % 36 == 0:
                     character_index = (character_index + 1) % len(characters)
                     self.character_lbl.destroy()  # Destroy the old character label
-                    self.character_lbl = tk.Label(self, image=self.characters[character_index])
+                    self.character_lbl = tk.Label(self, image=self.characters[character_index], bg="#142948", fg="#142948")
                     self.character_lbl.place(relx=0.5, y=660, anchor="center")  # Create a new character label
+                    
+                    '''character_message_index = (character_message_index + 1) % len(characters_message)
+                    self.character_message_lbl.destroy()  # Destroy the old character label
+                    self.character_message_lbl = tk.Label(self, image=self.characters_message[character_message_index], bg="#142948", fg="#142948")
+                    self.character_message_lbl.place(relx=0.5, rely=0.7, anchor="center")  # Create a new character label'''
             else:
                 time_limit_end_message = (f"Time limit game mode is over! You finished with a score of {score}.")
                 messagebox.showinfo("MathBridge", time_limit_end_message)
@@ -372,6 +434,16 @@ class MathBridge(tk.Tk):
         home_x = 1080
         home_y = 700
         self.home_button.place(x=home_x, y=home_y)
+        
+        self.sg_score_lbl = tk.Label(
+            self,
+            text=f"Score = {sg_score}",
+            font=("Tahoma", 30),
+            background="#142948",
+            fg="#EE4B2B",  # the red text colour
+        )
+        self.sg_score_lbl.place(x=70, y=100)
+        
         self.score_game_question()
 
     def score_game_question(self):
@@ -476,9 +548,11 @@ class MathBridge(tk.Tk):
             self.question_text_lbl.pack_forget()
             self.score_game_question()  # Generate a new question
         else:
-            self.user_input_entry.pack_forget()
-            self.question_text_lbl.pack_forget()
-            self.score_game_question()  # Generate a new question
+            score_game_end_message = (f"Aww you got a question wrong ☹️ Better luck next time! You finished with a total score of {sg_score}.")
+            messagebox.showinfo("MathBridge", score_game_end_message)
+            for child in self.winfo_children():
+                child.destroy()
+            self.create_welcome_screen()
 
         
     def show_home_screen(self):
