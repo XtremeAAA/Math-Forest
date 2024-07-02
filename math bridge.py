@@ -146,7 +146,7 @@ class MathBridge(tk.Tk):
         self.time_limit_question()
         self.score_def()
         self.time_limit_countdown_180()
-        
+
         self.characters = [  # Resize the image to 100x100
             ImageTk.PhotoImage(Image.open("characters/Character stage 5.png").resize((191, 225))),
             ImageTk.PhotoImage(Image.open("characters/Character stage 4.png").resize((137, 224))),
@@ -154,10 +154,35 @@ class MathBridge(tk.Tk):
             ImageTk.PhotoImage(Image.open("characters/Character stage 2.png").resize((83, 103))),
             ImageTk.PhotoImage(Image.open("characters/Character stage 1.png").resize((49, 100))),
         ]
-        
+
         self.character_index = 0
         self.character_lbl = tk.Label(self, image=self.characters[self.character_index])
         self.character_lbl.place(relx=0.5, y=660, anchor="center")
+
+        hello_messages = [
+            "Hello, Master!",
+            "Hi there!",
+            "Hey, what's up?",
+            "Yo!",
+            "Hello, friend!",
+        ]
+        hello_positions = [
+            (0.5, 0.7),
+            (0.5, 0.6),
+            (0.7, 0.7),
+            (0.4, 0.5),
+            (0.6, 0.4),
+        ]
+
+        self.character_stage_text = tk.Label(
+            self,
+            text=hello_messages[self.character_index],
+            font=("Tahoma", 20),
+            background="#142948",
+            fg="#EE4B2B",  # the red text colour
+        )
+        self.character_stage_text.place(relx=hello_positions[self.character_index][0], rely=hello_positions[self.character_index][1], anchor="center")
+
         self.time_limit_countdown_180()
 
     def score_def(self):
@@ -486,9 +511,11 @@ class MathBridge(tk.Tk):
             self.question_text_lbl.pack_forget()
             self.score_game_question()  # Generate a new question
         else:
-            self.user_input_entry.pack_forget()
-            self.question_text_lbl.pack_forget()
-            self.score_game_question()  # Generate a new question
+            score_game_end_message = (f"Aww you got a question wrong ☹️ Better luck next time! You finished with a total score of {sg_score}.")
+            messagebox.showinfo("MathBridge", score_game_end_message)
+            for child in self.winfo_children():
+                child.destroy()
+            self.create_welcome_screen()
 
         
     def show_home_screen(self):
