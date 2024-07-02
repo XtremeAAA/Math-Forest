@@ -174,6 +174,20 @@ class MathBridge(tk.Tk):
             (0.6, 0.4),
         ]
 
+        text_box_img = Image.open("Icons2/download.png")
+        text_box_img = text_box_img.resize((200, 50))  # Resize the image to 200x50
+        text_box_positions = [
+            (0.25, 0.65),
+            (0.45, 0.55),
+            (0.65, 0.65),
+            (0.35, 0.45),
+            (0.55, 0.35),
+        ]
+        new_img = Image.new('RGBA', text_box_img.size, (255, 255, 255, 0))
+        new_img.paste(text_box_img, mask=text_box_img)
+        self.text_box_photo = ImageTk.PhotoImage(new_img)  # Keep a reference to the PhotoImage object
+        self.text_box_lbl = tk.Label(self, image=self.text_box_photo)
+        self.text_box_lbl.place(relx=text_box_positions[self.character_index][0], rely=text_box_positions[self.character_index][1], anchor="center")
         self.character_stage_text = tk.Label(
             self,
             text=hello_messages[self.character_index],
