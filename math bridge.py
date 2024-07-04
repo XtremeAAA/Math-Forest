@@ -208,14 +208,17 @@ class MathBridge(tk.Tk):
 
     def validate_input(tl_user_input):
             """Validate the input string to only allow numbers and a single full stop."""
+            # Checks to make sure only one full stop is placed
             if tl_user_input.count(".") != 1:
                 return False
             
+            # Splits the users input from the everything to the left of the decimal place with everything right of the decimal place
             parts = tl_user_input.split(".")
             for part in parts:
                 if not part.isdigit():
                     return False
             
+            # Checks that index parts 1 is two decimal places long
             if len(parts[1]) != 2:
                 return False
             
@@ -386,6 +389,18 @@ class MathBridge(tk.Tk):
         )
         self.sg_score_lbl.place(x=70, y=100)
         
+        self.characters = [  # Resize the image to 100x100
+            ImageTk.PhotoImage(Image.open("characters/Character 1.png")),
+            ImageTk.PhotoImage(Image.open("characters/Character 2.png")),
+            ImageTk.PhotoImage(Image.open("characters/Character 3.png")),
+            ImageTk.PhotoImage(Image.open("characters/Character 4.png")),
+            ImageTk.PhotoImage(Image.open("characters/Character 5.png")),
+        ]
+
+        self.character_index = 0
+        self.character_lbl = tk.Label(self, image=self.characters[self.character_index], bg="#142948", fg="#142948")
+        self.character_lbl.place(relx=0.5, y=660, anchor="center")
+        
         self.score_game_question()
 
     def score_game_question(self):
@@ -486,6 +501,12 @@ class MathBridge(tk.Tk):
         if round(user_answer, 2) == x2dp:  # Compare the rounded user's answer to x2dp
             sg_score += 1
             self.sg_score_lbl.config(text=f"Score = {sg_score}")  # Update the score label
+
+            # Update character every 15 points
+            if sg_score % 15 == 0:
+                self.character_index = (self.character_index + 1) % len(self.characters)
+                self.character_lbl.config(image=self.characters[self.character_index])
+
             self.user_input_entry.pack_forget()
             self.question_text_lbl.pack_forget()
             self.score_game_question()  # Generate a new question
