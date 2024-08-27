@@ -2,37 +2,47 @@ import tkinter as tk
 from tkinter import PhotoImage, messagebox
 import random
 from PIL import Image, ImageTk
+import pygame
 
-
-# The `MathBridge` class is a subclass of `tk.Tk` with a title set to "Math Bridge".
-class MathBridge(tk.Tk):
+# The `MathForest` class is a subclass of `tk.Tk` with a title set to "Math Forest".
+class MathForest(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.title("Math Bridge")
+        self.title("Math Forest")
 
         # Make the window in the default application size
         self.geometry("1280x800")
         self.minsize(width=1280, height=800)
         self.create_welcome_screen()
-        self.config(bg="#142948")
+        self.config(bg="#1e3233")
 
     def create_welcome_screen(self):
         for child in self.winfo_children():
             child.destroy()
 
-        self.math_quest_image = PhotoImage(file=r"Icons2/Math Bridge.png")
-        self.label = tk.Label(self, image=self.math_quest_image)
-        self.label.pack(pady=30)
-
-        # Create gamemode buttons
+        # Create background
+        self.water_image = PhotoImage(file=r"Icons2/Artboard 1.png")
+        self.water_logo = tk.Label(
+            self,
+            image=self.water_image,
+            fg="#1e3233",
+            bg="#1e3233",
+            )
+        self.water_logo.place(x=0, y=0)
+        
+        # Create gamemode buttons-
         self.time_limit_button_image = PhotoImage(
             file=r"Icons2/button_time-limit-game-mode.png"
         )
         self.start_time_limit_button = tk.Button(
-            self, command=self.start_time_limit_game, image=self.time_limit_button_image
+            self,
+            command=self.start_time_limit_game,
+            image=self.time_limit_button_image,
+            fg="#1e3233",
+            bg="#1e3233",
         )
-        self.start_time_limit_button.pack(pady=(200, 0))
+        self.start_time_limit_button.place(x=515, y=422)
 
         self.score_gm_button_image = PhotoImage(
             file=r"Icons2/button_score-game-mode.png"
@@ -41,8 +51,10 @@ class MathBridge(tk.Tk):
             self,
             command=self.start_score_limit_game,
             image=self.score_gm_button_image,
+            fg="#1e3233",
+            bg="#1e3233",
         )
-        self.start_score_gm_button.pack(pady=(20, 0))
+        self.start_score_gm_button.place(x=515, y=543)
 
         # Create a button widget to exit full screen mode
         self.original_screen_size = PhotoImage(
@@ -50,13 +62,12 @@ class MathBridge(tk.Tk):
         )
         self.exit_button = tk.Button(
             self,
-            text="Return to original screen size",
             command=self.exit_full_screen,
             image=self.original_screen_size,
+            fg="#1e3233",
+            bg="#1e3233",
         )
-        exit_button_x = 30
-        exit_button_y = 700
-        self.exit_button.place(x=exit_button_x, y=exit_button_y)
+        self.exit_button.place(x=30, y=700)
 
     def start_time_limit_game(self):
         # Clear the screen
@@ -65,25 +76,24 @@ class MathBridge(tk.Tk):
         # Set score
         global score
         score = 0
+        
         # Original screen size
-
         self.original_screen_size = PhotoImage(
             file=r"Icons2/button_original-screen-size.png"
         )
-        self.exit_button = tk.Button(
-            self,
-            text="Return to original screen size",
-            command=self.exit_full_screen,
-            image=self.original_screen_size,
+        self.exit_button = tk.Button(self, text="Return to original screen size",command=self.exit_full_screen, 
+            image=self.original_screen_size,fg="#1e3233", bg="#1e3233",
         )
-        exit_button_x = 30
-        exit_button_y = 700
-        self.exit_button.place(x=exit_button_x, y=exit_button_y)
+        self.exit_button.place(x=30, y=700)
 
         # Home button
         self.home_button_img = PhotoImage(file=r"Icons2/button_home.png")
         self.home_button = tk.Button(
-            self, text="Home", command=self.show_home_screen, image=self.home_button_img
+            self, text="Home",
+            command=self.show_home_screen,
+            image=self.home_button_img,
+            fg="#1e3233",
+            bg="#1e3233",
         )
         home_x = 1080
         home_y = 700
@@ -91,7 +101,11 @@ class MathBridge(tk.Tk):
 
         # Get ready label
         self.get_ready_label = tk.Label(
-            self, text="Get Ready!!", font=("Tahoma", 40), background="#142948"
+            self,
+            text="Get Ready!!",
+            font=("Tahoma", 40),
+            background="#1e3233",
+            fg="#ffffff",
         )
         self.get_ready_label.pack(pady=30)
         self.after(1000, self.get_ready_label.forget)
@@ -110,7 +124,11 @@ class MathBridge(tk.Tk):
                 self.time_limit_game_begin()
 
         self.time_limit_countdown_lbl = tk.Label(
-            self, text=time_limit_countdown, font=("Tahoma", 30), background="#142948"
+            self,
+            text=time_limit_countdown,
+            font=("Tahoma", 30),
+            background="#1e3233",
+            fg="#ffffff",
         )
         self.time_limit_countdown_lbl.pack(pady=30)
         update_countdown()
@@ -121,7 +139,12 @@ class MathBridge(tk.Tk):
 
         self.home_button_img = PhotoImage(file=r"Icons2/button_home.png")
         self.home_button = tk.Button(
-            self, text="Home", command=self.show_home_screen, image=self.home_button_img
+            self,
+            text="Home",
+            command=self.show_home_screen,
+            image=self.home_button_img,
+            fg="#1e3233",
+            bg="#1e3233",
         )
         home_x = 1080
         home_y = 700
@@ -135,30 +158,37 @@ class MathBridge(tk.Tk):
             text="Return to original screen size",
             command=self.exit_full_screen,
             image=self.original_screen_size,
+            fg="#1e3233",
+            bg="#1e3233",
         )
-        exit_button_x = 30
-        exit_button_y = 700
-        self.exit_button.place(x=exit_button_x, y=exit_button_y)
+        self.exit_button.place(x=30, y=700)
 
         self.time_limit_banner = PhotoImage(file=r"Icons2/Time Limit Game.png")
-        self.time_limit_banner_label = tk.Label(self, image=self.time_limit_banner)
+        self.time_limit_banner_label = tk.Label(
+            self,
+            image=self.time_limit_banner,
+            )
         self.time_limit_banner_label.pack(pady=30)
         self.time_limit_question()
         self.score_def()
         self.time_limit_countdown_180()
 
         self.characters = [  # Resize the image to 100x100
-            ImageTk.PhotoImage(Image.open("characters/Character 5.png")),
-            ImageTk.PhotoImage(Image.open("characters/Character 4.png")),
-            ImageTk.PhotoImage(Image.open("characters/Character 3.png")),
-            ImageTk.PhotoImage(Image.open("characters/Character 2.png")),
-            ImageTk.PhotoImage(Image.open("characters/Character 1.png")),
+            ImageTk.PhotoImage(Image.open("Characters/TL-1.png")),
+            ImageTk.PhotoImage(Image.open("Characters/TL-2.png")),
+            ImageTk.PhotoImage(Image.open("Characters/TL-3.png")),
+            ImageTk.PhotoImage(Image.open("Characters/TL-4.png")),
+            ImageTk.PhotoImage(Image.open("Characters/TL-5.png")),
         ]
 
         self.character_index = 0
-        self.character_lbl = tk.Label(self, image=self.characters[self.character_index], bg="#142948", fg="#142948")
+        self.character_lbl = tk.Label(
+            self,
+            image=self.characters[self.character_index],
+            bg="#1e3233",
+            fg="#1e3233",
+            )
         self.character_lbl.place(relx=0.5, y=660, anchor="center")
-    
 
         self.time_limit_countdown_180()
 
@@ -168,7 +198,7 @@ class MathBridge(tk.Tk):
             self,
             text=f"Score = {score}",
             font=("Tahoma", 30),
-            background="#142948",
+            background="#1e3233",
             fg="#EE4B2B",  # the red text colour
         )
         self.score_lbl.place(x=70, y=100)
@@ -192,9 +222,20 @@ class MathBridge(tk.Tk):
 
     def display_question(self):
         self.question_text_lbl = tk.Label(
-            self, text=question_text, font=("Tahoma", 40), background="#142948"
+            self,
+            text=question_text,
+            font=("Tahoma", 40),
+            background="#1e3233",
+            fg="#ffffff",
         )
         self.question_text_lbl.pack(pady=(180, 0))
+
+
+
+
+
+
+
 
     def tl_submit_answer_button(self):
         self.tl_submit_answer_png = PhotoImage(file=r"Icons2/button_submit-answer.png")
@@ -202,31 +243,13 @@ class MathBridge(tk.Tk):
             self,
             command=self.tl_check_answer,
             image=self.tl_submit_answer_png,
-            background="#142948",
+            fg="#1e3233",
+            bg="#1e3233",
         )
         self.tl_submit_button.place(x=555, y=450)
 
-    def validate_input(tl_user_input):
-            """Validate the input string to only allow numbers and a single full stop."""
-            # Checks to make sure only one full stop is placed
-            if tl_user_input.count(".") != 1:
-                return False
-            
-            # Splits the users input from the everything to the left of the decimal place with everything right of the decimal place
-            parts = tl_user_input.split(".")
-            for part in parts:
-                if not part.isdigit():
-                    return False
-            
-            # Checks that index parts 1 is two decimal places long
-            if len(parts[1]) != 2:
-                return False
-            
-            return True
-
     def tl_user_input(self):
         global tl_user_input
-        """Create an Entry widget with validation to only allow numbers and a single full stop."""
 
         tl_user_input = tk.Entry(
             self,
@@ -235,14 +258,14 @@ class MathBridge(tk.Tk):
         )
         tl_user_input.pack()
         tl_user_input.focus_set()  # Set the focus to the Entry widget
-        self.x2dp_test = tk.Label(
+        '''self.x2dp_test = tk.Label(
             self,
             text=x2dp,
             font=("Tahoma", 30),
-            background="#142948",
+            background="#1e3233",
             fg="#EE4B2B",  # the red text colour
         )
-        self.x2dp_test.place(x=70, y=160)
+        self.x2dp_test.place(x=70, y=160)'''
         self.bind("<Return>", lambda event: self.tl_check_answer())
 
 
@@ -283,11 +306,13 @@ class MathBridge(tk.Tk):
 
         if round(user_answer, 2) == x2dp:  # Compare the rounded user's answer to x2dp
             score += 1
+            self.correct_audio()
             self.score_lbl.config(text=f"Score = {score}")  # Update the score label
             tl_user_input.pack_forget()
             self.question_text_lbl.pack_forget()
             self.time_limit_question()  # Generate a new question
         else:
+            self.incorrect_audio()
             tl_user_input.pack_forget()
             self.question_text_lbl.pack_forget()
             self.time_limit_question()  # Generate a new question
@@ -308,12 +333,17 @@ class MathBridge(tk.Tk):
                 if time_limit_countdown_180 % 36 == 0:
                     character_index = (character_index + 1) % len(characters)
                     self.character_lbl.destroy()  # Destroy the old character label
-                    self.character_lbl = tk.Label(self, image=self.characters[character_index], bg="#142948", fg="#142948")
+                    self.character_lbl = tk.Label(
+                        self, 
+                        image=self.characters[character_index], 
+                        bg="#1e3233", 
+                        fg="#1e3233",
+                        )
                     self.character_lbl.place(relx=0.5, y=660, anchor="center")  # Create a new character label
 
             else:
                 time_limit_end_message = (f"Time limit game mode is over! You finished with a score of {score}.")
-                messagebox.showinfo("MathBridge", time_limit_end_message)
+                messagebox.showinfo("MathForest", time_limit_end_message)
                 for child in self.winfo_children():
                     child.destroy()
                 self.create_welcome_screen()
@@ -322,7 +352,8 @@ class MathBridge(tk.Tk):
             self,
             text=time_limit_countdown_180,
             font=("Tahoma", 30),
-            background="#142948",
+            background="#1e3233",
+            fg="#ffffff",
         )
         self.time_limit_countdown_180_lbl.place(relx=0.5, y=150, anchor="center")
 
@@ -356,7 +387,10 @@ class MathBridge(tk.Tk):
         sg_score = 0
 
         self.score_game_banner = PhotoImage(file=r"Icons2/Score Limit Banner.png")
-        self.score_game_banner_lbl = tk.Label(self, image=self.score_game_banner)
+        self.score_game_banner_lbl = tk.Label(
+            self,
+            image=self.score_game_banner,
+            )
         self.score_game_banner_lbl.pack(pady=30)
 
         self.original_screen_size = PhotoImage(
@@ -367,6 +401,8 @@ class MathBridge(tk.Tk):
             text="Return to original screen size",
             command=self.exit_full_screen,
             image=self.original_screen_size,
+            fg="#1e3233",
+            bg="#1e3233",
         )
         exit_button_x = 30
         exit_button_y = 700
@@ -374,7 +410,12 @@ class MathBridge(tk.Tk):
 
         self.home_button_img = PhotoImage(file=r"Icons2/button_home.png")
         self.home_button = tk.Button(
-            self, text="Home", command=self.show_home_screen, image=self.home_button_img
+            self,
+            text="Home",
+            command=self.show_home_screen,
+            image=self.home_button_img,
+            fg="#1e3233",
+            bg="#1e3233",
         )
         home_x = 1080
         home_y = 700
@@ -384,21 +425,26 @@ class MathBridge(tk.Tk):
             self,
             text=f"Score = {sg_score}",
             font=("Tahoma", 30),
-            background="#142948",
+            background="#1e3233",
             fg="#EE4B2B",  # the red text colour
         )
         self.sg_score_lbl.place(x=70, y=100)
         
         self.characters = [  # Resize the image to 100x100
-            ImageTk.PhotoImage(Image.open("characters/Character 1.png")),
-            ImageTk.PhotoImage(Image.open("characters/Character 2.png")),
-            ImageTk.PhotoImage(Image.open("characters/Character 3.png")),
-            ImageTk.PhotoImage(Image.open("characters/Character 4.png")),
-            ImageTk.PhotoImage(Image.open("characters/Character 5.png")),
+            ImageTk.PhotoImage(Image.open("Characters/SL-1.png")),
+            ImageTk.PhotoImage(Image.open("Characters/SL-2.png")),
+            ImageTk.PhotoImage(Image.open("Characters/SL-3.png")),
+            ImageTk.PhotoImage(Image.open("Characters/SL-4.png")),
+            ImageTk.PhotoImage(Image.open("Characters/SL-5.png")),
         ]
 
         self.character_index = 0
-        self.character_lbl = tk.Label(self, image=self.characters[self.character_index], bg="#142948", fg="#142948")
+        self.character_lbl = tk.Label(
+            self,
+            image=self.characters[self.character_index],
+            bg="#1e3233",
+            fg="#1e3233",
+            )
         self.character_lbl.place(relx=0.5, y=660, anchor="center")
         
         self.score_game_question()
@@ -422,7 +468,11 @@ class MathBridge(tk.Tk):
 
     def score_game_display_question(self):
             self.question_text_lbl = tk.Label(
-                self, text=question_text, font=("Tahoma", 40), background="#142948"
+                self,
+                text=question_text,
+                font=("Tahoma", 40),
+                background="#1e3233",
+                fg="#ffffff",
             )
             self.question_text_lbl.pack(pady=(180, 0))
 
@@ -449,14 +499,14 @@ class MathBridge(tk.Tk):
         )
         self.user_input_entry.pack()
         self.user_input_entry.focus_set()  # Set the focus to the Entry widget
-        self.x2dp_test = tk.Label(
+        '''self.x2dp_test = tk.Label(
             self,
             text=x2dp,
             font=("Tahoma", 30),
-            background="#142948",
+            background="#1e3233",
             fg="#EE4B2B",  # the red text colour
         )
-        self.x2dp_test.place(x=70, y=160)
+        self.x2dp_test.place(x=70, y=160)'''
         self.bind("<Return>", lambda event: self.sg_check_answer())
 
 
@@ -466,7 +516,8 @@ class MathBridge(tk.Tk):
             self,
             command=self.sg_check_answer,
             image=self.sg_submit_answer_png,
-            background="#142948",
+            fg="#1e3233",
+            bg="#1e3233",
         )
         self.sg_submit_button.place(x=555, y=450)
 
@@ -479,7 +530,7 @@ class MathBridge(tk.Tk):
             self,
             text=f"Score = {sg_score}",
             font=("Tahoma", 30),
-            background="#142948",
+            background="#1e3233",
             fg="#EE4B2B",  # the red text colour
         )
         self.sg_score_lbl.place(x=70, y=100)
@@ -500,6 +551,7 @@ class MathBridge(tk.Tk):
 
         if round(user_answer, 2) == x2dp:  # Compare the rounded user's answer to x2dp
             sg_score += 1
+            self.correct_audio()
             self.sg_score_lbl.config(text=f"Score = {sg_score}")  # Update the score label
 
             # Update character every 15 points
@@ -511,8 +563,9 @@ class MathBridge(tk.Tk):
             self.question_text_lbl.pack_forget()
             self.score_game_question()  # Generate a new question
         else:
+            self.incorrect_audio()
             score_game_end_message = (f"Aww you got a question wrong ☹️ Better luck next time! You finished with a total score of {sg_score}.")
-            messagebox.showinfo("MathBridge", score_game_end_message)
+            messagebox.showinfo("MathForest", score_game_end_message)
             for child in self.winfo_children():
                 child.destroy()
             self.create_welcome_screen()
@@ -528,7 +581,20 @@ class MathBridge(tk.Tk):
         # Resize the window to its previous size
         self.geometry("1280x800")
 
+    def correct_audio(self):
+        pygame.mixer.init()
+        pygame.mixer.music.load(
+            "audio/correct_answers.MP3"
+        )
+        pygame.mixer.music.play()
+        
+    def incorrect_audio(self):
+        pygame.mixer.init()
+        pygame.mixer.music.load(
+            "audio/incorrect_answer.MP3"
+        )
+        pygame.mixer.music.play()
 
 if __name__ == "__main__":
-    app = MathBridge()
+    app = MathForest()
     app.mainloop()
