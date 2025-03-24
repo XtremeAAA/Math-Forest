@@ -201,7 +201,7 @@ class MathForest(tk.Tk):
             background="#1e3233",
             fg="#EE4B2B",  # the red text colour
         )
-        self.score_lbl.place(x=70, y=100)
+        self.score_lbl.place(x=70, y=130)
 
     def time_limit_question(self):
         # generates the integers for my questions
@@ -428,7 +428,7 @@ class MathForest(tk.Tk):
             background="#1e3233",
             fg="#EE4B2B",  # the red text colour
         )
-        self.sg_score_lbl.place(x=70, y=100)
+        self.sg_score_lbl.place(x=70, y=130)
         
         self.characters = [  # Resize the image to 100x100
             ImageTk.PhotoImage(Image.open("Characters/SL-1.png")),
@@ -533,7 +533,7 @@ class MathForest(tk.Tk):
             background="#1e3233",
             fg="#EE4B2B",  # the red text colour
         )
-        self.sg_score_lbl.place(x=70, y=100)
+        self.sg_score_lbl.place(x=70, y=130)
 
         if not self.sg_validate_input(user_answer):
             messagebox.showerror("Invalid Input", "Please enter a valid number with two decimal places.")
