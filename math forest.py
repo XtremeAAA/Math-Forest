@@ -3,7 +3,7 @@ from tkinter import PhotoImage, messagebox
 import random
 from PIL import Image, ImageTk
 import pygame
-
+# test
 # The `MathForest` class is a subclass of `tk.Tk` with a title set to "Math Forest".
 class MathForest(tk.Tk):
     def __init__(self):
